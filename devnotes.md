@@ -1,0 +1,119 @@
+# Workato files to parse
+
+## Where to find key information
+
+Systems Connections & Workflow Logic -> `recipe.json`
+Account Details -> `.connecton.json` files
+
+## Files content
+
+1. Recipe files ends in `.recipe.json`
+
+- _Contains:_ workflow logic, systems connections, data flow
+
+2. Connection files ends in `.connection.json`
+
+- _Contains:_ Account/connection details
+
+## File Processing Strategy
+
+### Primary processing -> `recipe.json`
+
+90% of what I need is here:
+
+- Systems types (**provider** fields)
+- Workflow Steps (**code.block** array)
+- Connection references (**config.account_id.zip_name** )
+
+### Secondary processing
+
+Enrichment layer
+
+- Human readable connection names
+- Additional connection metadata
+
+### Key-value pairs sample
+
+1. Recipe Metadata (TOP LEVEL)
+
+`{
+  "name": "Recipe name",
+  "description": "What the recipe does",
+  "version": 3
+}`
+
+2. Systems Connections (Most of the info here)
+
+`"config": [
+  {
+    "provider": "google_sheets",  // System type
+    "account_id": {
+      "name": "My Google Sheets account"  // Connection name
+    }
+  },
+  {
+    "provider": "email",
+    "account_id": null  // Built-in connector
+  }
+]`
+
+3. Workflow Steps (Core Logic)
+
+### Trigger
+
+`{
+  "number": 0,
+  "provider": "google_sheets",        // Source system
+  "name": "new_spreadsheet_row_v4",   // What triggers it
+  "keyword": "trigger"
+}`
+
+### Actions (in the `block` array)
+
+`{
+  "number": 1,
+  "provider": "email",           // Target system  
+  "name": "send_mail",          // What action
+  "keyword": "action"
+}`
+
+4. Data Flow (How data flows between systems)
+
+`"input": {
+  "data": {
+    "col_1": "#{...output from previous step...}"  // Data mapping
+  }
+}`
+
+## Basic parsing strategy
+
+1. Scan directory for `.recipe.json` and `.connection.json` files
+2. Load all recipe files first (main workflow data)
+3. Load connection files second (account names and metadata)
+4. Cross-reference using the zip_name links
+   **long_filename.recipe.json**
+
+- 4a Load the recipe
+  `"config": [
+  {
+    "provider": "google_sheets",
+    "account_id": {
+      "zip_name": "my_google_sheets_account.connection.json",  // ← Points to connection file
+      "name": "My Google Sheets account"
+    }
+  }
+]`
+
+  **long_filename.connection.json**
+
+- 4b look up the connection file
+
+`{
+  "name": "My Google Sheets account",     // ← Same name, more details here
+  "provider": "google_sheets",
+  "root_folder": false
+}`
+
+- 4c merge data: Combine recipe workflow info with connection details
+
+5. Generate visualization from the combined data

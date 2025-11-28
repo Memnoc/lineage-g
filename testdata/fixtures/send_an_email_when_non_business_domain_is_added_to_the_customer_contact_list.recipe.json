@@ -1,0 +1,212 @@
+{
+  "name": "Send an email when non business domain is added to the Customer Contact List",
+  "description": "",
+  "version": 3,
+  "private": true,
+  "concurrency": 1,
+  "code": {
+    "number": 0,
+    "provider": "google_sheets",
+    "name": "updated_spreadsheet_row_v4_2",
+    "as": "c049c159",
+    "keyword": "trigger",
+    "dynamicPickListSelection": {
+      "spreadsheet": "Workato Pro I"
+    },
+    "toggleCfg": {
+      "spreadsheet": true,
+      "sheet": true
+    },
+    "input": {
+      "spreadsheet": "1sDdIpmtpH_TJcgJ4z28e15auh0-E45Ixje1rh67eUYw",
+      "sheet": "Sheet2",
+      "watchfield": "3"
+    },
+    "filter": {
+      "conditions": [
+        {
+          "operand": "contains",
+          "lhs": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"google_sheets\",\"line\":\"c049c159\",\"path\":[\"columns\",\"col_3\"]}')}",
+          "rhs": "@yahoo.com",
+          "uuid": "d327e224-3805-4122-b454-10e15a9ad498"
+        },
+        {
+          "operand": "contains",
+          "lhs": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"google_sheets\",\"line\":\"c049c159\",\"path\":[\"columns\",\"col_3\"]}')}",
+          "rhs": "@gmail.com",
+          "uuid": "c46ee97d-4212-4e6d-bcd6-10eae55b4145"
+        }
+      ],
+      "operand": "or",
+      "type": "compound"
+    },
+    "extended_output_schema": [
+      {
+        "label": "Columns",
+        "name": "columns",
+        "properties": [
+          {
+            "control_type": "text",
+            "label": "First Name",
+            "optional": true,
+            "type": "string",
+            "name": "col_1"
+          },
+          {
+            "control_type": "text",
+            "label": "Last Name",
+            "optional": true,
+            "type": "string",
+            "name": "col_2"
+          },
+          {
+            "control_type": "text",
+            "label": "Email Address",
+            "optional": true,
+            "type": "string",
+            "name": "col_3"
+          }
+        ],
+        "type": "object"
+      }
+    ],
+    "extended_input_schema": [
+      {
+        "control_type": "select",
+        "extends_schema": true,
+        "hint": "Select a sheet to monitor for new/updated row. The sheet must have at least one header row.",
+        "label": "Sheet",
+        "name": "sheet",
+        "optional": false,
+        "pick_list": [
+          [
+            "Sheet1",
+            "Sheet1"
+          ],
+          [
+            "Sheet2",
+            "Sheet2"
+          ]
+        ],
+        "toggle_field": {
+          "control_type": "text",
+          "label": "Sheet",
+          "toggle_hint": "Use sheet name",
+          "extends_schema": true,
+          "change_on_blur": true,
+          "toggle_to_secondary_hint": "Use sheet name",
+          "toggle_to_primary_hint": "Select a sheet",
+          "hint": "Enter the sheet name. The sheet must have at least one header row.",
+          "type": "string",
+          "name": "sheet"
+        },
+        "toggle_hint": "Select a sheet",
+        "type": "string"
+      },
+      {
+        "control_type": "select",
+        "hint": "Workato will monitor this column for changes. When a cell in this column changes value, the corresponding row will be consider as \"updated\" and triggers the recipe to run.",
+        "label": "Column to monitor",
+        "name": "watchfield",
+        "optional": false,
+        "pick_list": [
+          [
+            "All columns",
+            0
+          ],
+          [
+            "First Name",
+            1
+          ],
+          [
+            "Last Name",
+            2
+          ],
+          [
+            "Email Address",
+            3
+          ]
+        ],
+        "type": "string"
+      },
+      {
+        "control_type": "checkbox",
+        "extends_schema": true,
+        "hint": "Default is <b>No</b>.<br>If <b>Yes</b>, add column names manually in the input field below.<br>If <b>No</b>, Workato will automatically get the first row in your sheet as column names.",
+        "label": "Add column names manually?",
+        "name": "header_fl",
+        "optional": true,
+        "toggle_field": {
+          "label": "Add column names manually?",
+          "control_type": "text",
+          "toggle_hint": "Use custom value",
+          "extends_schema": true,
+          "hint": "Default is <b>No</b>.<br>If <b>Yes</b>, add column names manually in the input field below.<br>If <b>No</b>, Workato will automatically get the first row in your sheet as column names.",
+          "optional": true,
+          "toggle_field": null,
+          "render_input": null,
+          "parse_output": null,
+          "type": "boolean",
+          "name": "header_fl"
+        },
+        "toggle_hint": "Select from option list",
+        "type": "boolean"
+      }
+    ],
+    "block": [
+      {
+        "number": 1,
+        "provider": "email",
+        "name": "send_mail",
+        "as": "b96271e9",
+        "keyword": "action",
+        "input": {
+          "email_type": "html",
+          "to": "memnochmod@gmail.com",
+          "subject": "=\"New non-business email address in Customer Contact List\".upcase",
+          "body": "Customer #{_dp('{\"pill_type\":\"output\",\"provider\":\"google_sheets\",\"line\":\"c049c159\",\"path\":[\"columns\",\"col_1\"]}')}#{_dp('{\"pill_type\":\"output\",\"provider\":\"google_sheets\",\"line\":\"c049c159\",\"path\":[\"columns\",\"col_2\"]}')} has updatd their email address to #{_dp('{\"pill_type\":\"output\",\"provider\":\"google_sheets\",\"line\":\"c049c159\",\"path\":[\"columns\",\"col_3\"]}')}"
+        },
+        "uuid": "05cbaed8-2477-49a9-9697-fa4732396d1d"
+      }
+    ],
+    "job_report_schema": [
+      {
+        "name": "custom_column_0",
+        "label": "First Name"
+      },
+      {
+        "name": "custom_column_1",
+        "label": "Last Name"
+      },
+      {
+        "name": "custom_column_2",
+        "label": "Email Address"
+      }
+    ],
+    "job_report_config": {
+      "custom_column_0": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"google_sheets\",\"line\":\"c049c159\",\"path\":[\"columns\",\"col_1\"]}')}",
+      "custom_column_1": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"google_sheets\",\"line\":\"c049c159\",\"path\":[\"columns\",\"col_2\"]}')}",
+      "custom_column_2": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"google_sheets\",\"line\":\"c049c159\",\"path\":[\"columns\",\"col_3\"]}')}"
+    },
+    "uuid": "2ca51a1e-4bd9-4145-9312-0d79c4df8b6a",
+    "unfinished": false
+  },
+  "config": [
+    {
+      "keyword": "application",
+      "provider": "google_sheets",
+      "skip_validation": false,
+      "account_id": {
+        "zip_name": "my_google_sheets_account.connection.json",
+        "name": "My Google Sheets account",
+        "folder": ""
+      }
+    },
+    {
+      "keyword": "application",
+      "provider": "email",
+      "skip_validation": false,
+      "account_id": null
+    }
+  ]
+}
