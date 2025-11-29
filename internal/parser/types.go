@@ -1,14 +1,21 @@
 package parser
 
-// Recipe represents a Workato recipe JSON structure
+// INFO:: I need to flatten the messy structure of the Workato
+// JSON files so I am creating two structures here: one to catpure the
+// data from the manifest files, and one to normalise them into something
+// I can parse easily
+
+// NOTE: Workato recipe JSON structure
+// topd level of .recipe.json file
 type Recipe struct {
 	Name        string   `json:"name"`
 	Description string   `json:"description"`
 	Version     int      `json:"version"`
-	Code        Code     `json:"code"`
+	Code        Code     `json:"code"` // workflow definition
 	Config      []Config `json:"config"`
 }
 
+// NOTE: logic
 type Code struct {
 	Number   int     `json:"number"`
 	Provider string  `json:"provider"`
@@ -16,17 +23,20 @@ type Code struct {
 	Block    []Block `json:"block"`
 }
 
+// NOTE: actions
 type Block struct {
 	Number   int    `json:"number"`
 	Provider string `json:"provider"`
 	Name     string `json:"name"`
 }
 
+// NOTE: sys connections
 type Config struct {
 	Provider  string     `json:"provider"`
 	AccountID *AccountID `json:"account_id"`
 }
 
+// FIX: not sure I want this in the end
 type AccountID struct {
 	ZipName string `json:"zip_name"`
 	Name    string `json:"name"`
@@ -37,7 +47,7 @@ type Connection struct {
 	Provider string `json:"provider"`
 }
 
-// ProcessedRecipe is the normalized output structure
+// NOTE: JSON transformation layer
 type ProcessedRecipe struct {
 	Name        string
 	Description string

@@ -1,3 +1,4 @@
+// Package parser logic
 package parser
 
 import (
@@ -19,6 +20,7 @@ func New() *Parser {
 	}
 }
 
+// LoadDirectory NOTE: Using WalkDir would be better here
 func (p *Parser) LoadDirectory(dir string) error {
 	return filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil || info.IsDir() {
