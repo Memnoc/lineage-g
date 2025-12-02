@@ -11,7 +11,7 @@ type Recipe struct {
 	Name        string   `json:"name"`
 	Description string   `json:"description"`
 	Version     int      `json:"version"`
-	Code        Code     `json:"code"` // workflow definition
+	Code        Code     `json:"code"`
 	Config      []Config `json:"config"`
 }
 
