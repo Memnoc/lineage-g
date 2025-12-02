@@ -123,7 +123,7 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 		}
 
 		if cfg.AccountID != nil {
-			// key for look-up logic
+			// key for connections look-up logic
 			if conn, exists := p.connections[cfg.AccountID.ZipName]; exists {
 				connInfo.ConnectionName = conn.Name
 			} else {
