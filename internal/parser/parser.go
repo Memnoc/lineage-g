@@ -1,4 +1,6 @@
-// Package parser logic
+/*
+* Package parser logic
+*/ 
 package parser
 
 import (
@@ -20,7 +22,7 @@ func New() *Parser {
 	}
 }
 
-// LoadDirectory NOTE: Using WalkDir would be better here
+// LoadDirectory TODO: Using WalkDir would be better here
 func (p *Parser) LoadDirectory(dir string) error {
 	return filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil || info.IsDir() {
@@ -89,7 +91,9 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 		},
 	}
 
-	// Actions
+	/*
+	* Recipe Actions
+	*/
 	for _, block := range recipe.Code.Block {
 		proc.Actions = append(proc.Actions, Step{
 			System:     block.Provider,
@@ -98,7 +102,9 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 		})
 	}
 
-	// Unique systems
+	/*
+	* Unique Systems
+	*/ 
 	systemSet := make(map[string]bool)
 	systemSet[proc.Trigger.System] = true
 	for _, action := range proc.Actions {
@@ -108,8 +114,9 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 		proc.Systems = append(proc.Systems, sys)
 	}
 
-	// Connections with cross-reference
-	for _, cfg := range recipe.Config {
+	/*
+	* Connections with cross-reference
+	*/ 	for _, cfg := range recipe.Config {
 		connInfo := ConnectionInfo{
 			Provider:  cfg.Provider,
 			IsBuiltIn: cfg.AccountID == nil,
@@ -128,7 +135,9 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 		proc.Connections = append(proc.Connections, connInfo)
 	}
 
-	// Flow
+	/*
+	*Recipe Flow
+	*/
 	allSteps := append([]Step{proc.Trigger}, proc.Actions...)
 	for i := 1; i < len(allSteps); i++ {
 		proc.Flow = append(proc.Flow, SystemFlow{

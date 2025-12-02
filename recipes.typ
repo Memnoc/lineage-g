@@ -1,6 +1,6 @@
 == Send an email when non business domain is added to the Customer Contact List
 
-*Systems:* email, google_sheets
+*Systems:* google_sheets, email
 
 *Connections:*
 - google_sheets: My Google Sheets account (Custom)

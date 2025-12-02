@@ -79,14 +79,8 @@
         "name": "sheet",
         "optional": false,
         "pick_list": [
-          [
-            "Sheet1",
-            "Sheet1"
-          ],
-          [
-            "Sheet2",
-            "Sheet2"
-          ]
+          ["Sheet1", "Sheet1"],
+          ["Sheet2", "Sheet2"]
         ],
         "toggle_field": {
           "control_type": "text",
@@ -110,22 +104,10 @@
         "name": "watchfield",
         "optional": false,
         "pick_list": [
-          [
-            "All columns",
-            0
-          ],
-          [
-            "First Name",
-            1
-          ],
-          [
-            "Last Name",
-            2
-          ],
-          [
-            "Email Address",
-            3
-          ]
+          ["All columns", 0],
+          ["First Name", 1],
+          ["Last Name", 2],
+          ["Email Address", 3]
         ],
         "type": "string"
       },

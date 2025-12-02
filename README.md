@@ -64,16 +64,15 @@ Salesforce → Google Sheets → Slack
 
 ## Getting Started (TBD)
 
-1. Clone this repository
-2. [Installation instructions based on your chosen tech stack]
-3. Run the application
-4. Import your Workato recipe files
-5. Explore your integration landscape!
+```bash
+1. make build
+2. ./bin/lineage testdata/fixtures
+3. typst compile recipes.typ
+```
 
-## You will need
+```
 
-- [Your desktop app requirements - OS, runtime, etc.]
-- Workato recipe export files
+```
 
 ## 🤝 Contributing
 

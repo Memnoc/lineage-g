@@ -11,8 +11,11 @@ func TestNew(t *testing.T) {
 	}
 }
 
+/*
+* FIX: fixture data placeholder
+*/
 func TestLoadDirectory(t *testing.T) {
 	p := New()
-	// Add actual test once we have fixture data
+	// this should contain fixture data
 	_ = p
 }

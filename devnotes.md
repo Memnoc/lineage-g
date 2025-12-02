@@ -3,29 +3,29 @@
 ## Where to find key information
 
 Systems Connections & Workflow Logic -> `recipe.json`
-Account Details -> `.connecton.json` files
+Account Details -> `.connection.json` files
 
 ## Files content
 
-1. Recipe files ends in `.recipe.json`
+1. Recipe files ending in `.recipe.json`
 
 - _Contains:_ workflow logic, systems connections, data flow
 
-2. Connection files ends in `.connection.json`
+2. Connection files ending in `.connection.json`
 
 - _Contains:_ Account/connection details
 
 ## File Processing Strategy
 
-### Primary processing -> `recipe.json`
+### Primary layer -> `recipe.json`
 
-90% of what I need is here:
+90% of what I need is in:
 
 - Systems types (**provider** fields)
 - Workflow Steps (**code.block** array)
 - Connection references (**config.account_id.zip_name** )
 
-### Secondary processing
+### Secondary layer
 
 Enrichment layer
 
@@ -57,7 +57,7 @@ Enrichment layer
   }
 ]`
 
-3. Workflow Steps (Core Logic)
+3. Workflow Steps (Recipe Logic)
 
 ### Trigger
 
@@ -85,13 +85,11 @@ Enrichment layer
   }
 }`
 
-## Basic parsing strategy
+## Basic parsing steps
 
-1. Scan directory for `.recipe.json` and `.connection.json` files
-2. Load all recipe files first (main workflow data)
-3. Load connection files second (account names and metadata)
-4. Cross-reference using the zip_name links
-   **long_filename.recipe.json**
+1. We scan and load the files in a single directory walk, loading both file types into separate maps
+2. The processing for each recipe is: cross-reference zip_name → look up in connections map → merge data
+3. Transformation of the processed data into Typst markup
 
 - 4a Load the recipe
   `"config": [
