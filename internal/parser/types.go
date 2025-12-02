@@ -6,7 +6,7 @@ package parser
 // I can parse easily
 
 // NOTE: Workato recipe JSON structure
-// topd level of .recipe.json file
+// top level of .recipe.json file
 type Recipe struct {
 	Name        string   `json:"name"`
 	Description string   `json:"description"`
