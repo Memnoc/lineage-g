@@ -62,14 +62,22 @@ Salesforce → Google Sheets → Slack
 [Trigger]     [Update]    [Notify]
 ```
 
+## Basic Workato export looks like
+
+```bash
+workato-export.zip
+├── recipe1.recipe.json
+├── recipe2.recipe.json
+├── connection1.connection.json
+└── connection2.connection.json
+```
+
 ## Getting Started (TBD)
 
 ```bash
 1. make build
 2. ./bin/lineage testdata/fixtures
 3. typst compile recipes.typ
-```
-
 ```
 
 ```
@@ -83,3 +91,4 @@ Contributions are welcome! Please feel free to submit issues, feature requests, 
 ## MIT
 
 **Note**: This tool is designed for Workato recipe analysis and is not affiliated with Workato Inc.
+```
