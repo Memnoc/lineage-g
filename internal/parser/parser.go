@@ -137,7 +137,7 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 	}
 
 	/*
-	*Recipe Flow
+	* Recipe Flow
 	*/
 	allSteps := append([]Step{proc.Trigger}, proc.Actions...)
 	for i := 1; i < len(allSteps); i++ {

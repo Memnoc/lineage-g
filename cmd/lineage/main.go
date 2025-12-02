@@ -15,7 +15,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	// We read JSON here
 	p := parser.New()
 
 	if err := p.LoadDirectory(os.Args[1]); err != nil {

@@ -1,12 +1,7 @@
 package parser
 
-// INFO:: I need to flatten the messy structure of the Workato
-// JSON files so I am creating two structures here: one to catpure the
-// data from the manifest files, and one to normalise them into something
-// I can parse easily
 
-// NOTE: Workato recipe JSON structure
-// top level of .recipe.json file
+// NOTE: Workato recipe raw JSON structure
 type Recipe struct {
 	Name        string   `json:"name"`
 	Description string   `json:"description"`
@@ -47,6 +42,10 @@ type Connection struct {
 	Provider string `json:"provider"`
 }
 
+// INFO:: I need to flatten the messy structure of the Workato
+// JSON files so I am creating two structures here: one to catpure the
+// data from the manifest files, and one to normalise them into something
+// I can parse easily
 // NOTE: JSON transformation layer
 type ProcessedRecipe struct {
 	Name        string

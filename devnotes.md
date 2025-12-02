@@ -115,3 +115,53 @@ Enrichment layer
 - 4c merge data: Combine recipe workflow info with connection details
 
 5. Generate visualization from the combined data
+
+## About the type structure
+
+We ingest raw JSON data as provided by the export feature and we create a flatter representation of that data that it's easier to work with. We prefer `Marshall` and `Unmarshall` instead of encoding and decoding JSON.
+
+```json
+
+
+{
+"name": "Send an email when...", ← Recipe top level
+"description": "",
+"version": 3,
+
+"code": { ← Workflow definition
+"number": 0, ← Step number (trigger)
+"provider": "google_sheets", ← System type
+"name": "updated_spreadsheet_row_v4_2", ← Action name
+"keyword": "trigger",
+
+    "block": [                                ← Array of action steps
+      {
+        "number": 1,                          ← Step number
+        "provider": "email",                  ← System type
+        "name": "send_mail",                  ← Action name
+        "keyword": "action"
+      }
+    ]
+
+},
+
+```
+
+```json
+
+"config": [ ← Connection definitions
+{
+"provider": "google_sheets",
+"account_id": {
+"zip_name": "my_google_sheets_account.connection.json", ← File reference
+"name": "My Google Sheets account"
+}
+},
+{
+"provider": "email",
+"account_id": null ← Built-in, no custom account
+}
+]
+}
+
+```
