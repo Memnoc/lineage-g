@@ -1,6 +1,4 @@
-/*
-* Package parser logic
-*/ 
+// Package parser
 package parser
 
 import (
@@ -93,7 +91,7 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 
 	/*
 	* Recipe Actions
-	*/
+	 */
 	for _, block := range recipe.Code.Block {
 		proc.Actions = append(proc.Actions, Step{
 			System:     block.Provider,
@@ -104,7 +102,7 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 
 	/*
 	* Unique Systems
-	*/ 
+	 */
 	systemSet := make(map[string]bool)
 	systemSet[proc.Trigger.System] = true
 	for _, action := range proc.Actions {
@@ -116,7 +114,7 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 
 	/*
 	* Connections with cross-reference
-	*/ 	for _, cfg := range recipe.Config {
+	 */for _, cfg := range recipe.Config {
 		connInfo := ConnectionInfo{
 			Provider:  cfg.Provider,
 			IsBuiltIn: cfg.AccountID == nil,
@@ -138,7 +136,7 @@ func (p *Parser) processRecipe(recipe *Recipe) *ProcessedRecipe {
 
 	/*
 	* Recipe Flow
-	*/
+	 */
 	allSteps := append([]Step{proc.Trigger}, proc.Actions...)
 	for i := 1; i < len(allSteps); i++ {
 		proc.Flow = append(proc.Flow, SystemFlow{

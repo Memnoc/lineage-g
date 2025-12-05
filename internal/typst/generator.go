@@ -1,3 +1,4 @@
+// Package typst
 package typst
 
 import (
@@ -7,9 +8,8 @@ import (
 	"github.com/Memnoc/lineage/internal/parser"
 )
 
-/*
-* WARNING: empty struct for now
-*/
+// Generator struct
+// WARNING: empty struct for now
 type Generator struct{}
 
 func NewGenerator() *Generator {
@@ -39,14 +39,14 @@ func (g *Generator) generateRecipe(b *strings.Builder, recipe *parser.ProcessedR
 
 	/*
 	* Systems representation
-	*/
+	 */
 	b.WriteString("*Systems:* ")
 	b.WriteString(strings.Join(recipe.Systems, ", "))
 	b.WriteString("\n\n")
 
 	/*
 	*Systems Connections
-	*/
+	 */
 	b.WriteString("*Connections:*\n")
 	for _, conn := range recipe.Connections {
 		status := "Custom"
@@ -73,13 +73,13 @@ func (g *Generator) generateDiagram(b *strings.Builder, recipe *parser.Processed
 
 	/*
 	*Trigger box
-	*/
+	 */
 	b.WriteString(fmt.Sprintf("  box(fill: rgb(\"#e0f2ff\"), inset: 1em, radius: 0.5em)[*%s*],\n",
 		formatName(recipe.Trigger.System)))
 
 	/*
 	*Action boxes
-	*/
+	 */
 	for _, action := range recipe.Actions {
 		b.WriteString(fmt.Sprintf("  box(fill: rgb(\"#bae6fd\"), inset: 1em, radius: 0.5em)[*%s*],\n",
 			formatName(action.System)))
@@ -87,9 +87,7 @@ func (g *Generator) generateDiagram(b *strings.Builder, recipe *parser.Processed
 
 	b.WriteString(")\n\n")
 
-	/*
-	* WARNING: Flow arrows as text is much easier for now
-	*/
+	//  WARNING: Flow arrows as text is much easier for now
 	b.WriteString("*Data Flow:* ")
 	prevSystem := recipe.Trigger.System
 	for _, flow := range recipe.Flow {

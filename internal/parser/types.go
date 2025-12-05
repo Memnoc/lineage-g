@@ -1,6 +1,6 @@
 package parser
 
-
+// Recipe type
 // NOTE: Workato recipe raw JSON structure
 type Recipe struct {
 	Name        string   `json:"name"`
@@ -10,6 +10,7 @@ type Recipe struct {
 	Config      []Config `json:"config"`
 }
 
+// Code struct
 // NOTE: logic
 type Code struct {
 	Number   int     `json:"number"`
@@ -18,6 +19,7 @@ type Code struct {
 	Block    []Block `json:"block"`
 }
 
+// Block struct
 // NOTE: actions
 type Block struct {
 	Number   int    `json:"number"`
@@ -25,12 +27,14 @@ type Block struct {
 	Name     string `json:"name"`
 }
 
+// Config struct
 // NOTE: sys connections
 type Config struct {
 	Provider  string     `json:"provider"`
 	AccountID *AccountID `json:"account_id"`
 }
 
+// AccountID struct
 // FIX: not sure I want this in the end
 type AccountID struct {
 	ZipName string `json:"zip_name"`
@@ -42,6 +46,7 @@ type Connection struct {
 	Provider string `json:"provider"`
 }
 
+// ProcessedRecipe strcut
 // INFO:: I need to flatten the messy structure of the Workato
 // JSON files so I am creating two structures here: one to catpure the
 // data from the manifest files, and one to normalise them into something
